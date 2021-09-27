@@ -5,7 +5,7 @@ import pandas
 
 import os
 
-if not os.path.exists("parsed_files"):
+if not os.path.exists("parsed_files"): # creating new folder to store the outputs; using this function to make directory with this name (the if statement is to make a folder with a unique name)
 	os.mkdir("parsed_files")
 
 file_name = "html_files/coinmarketcap20210921161126.html"
