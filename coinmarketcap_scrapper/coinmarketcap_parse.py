@@ -9,25 +9,36 @@ if not os.path.exists("parsed_files"): # creating new folder to store the output
 	os.mkdir("parsed_files")
 
 file_name = "html_files/coinmarketcap20210921161126.html"
-f = open(file_name, "r")
+f = open(file_name, "r") #r = reading; opening the connection to the file
 # file_content = f.read()
 # print(file_content)
 soup = BeautifulSoup(f.read(), "html.parser")	
-f.close()
+f.close() #good practice to avoid consuming more resources than necessary. Close after using it. (f is like the raw material of the soup. After cooking the soup , you don't need the raw material anymore, just the soup)
 
 # print(soup.find("tbody")) # prints everything from <tbody> to </tbody>; correct; save it as an object:
 tbody = soup.find("tbody")
 currency_rows = tbody.find_all("tr") #within tbody, save all tr and save in object
 
-for each_currency_row in currency_rows:
+for singular_currency_row in currency_rows:
 	# one_currency_row = currency_rows[0] # only reading the first one; before doing the loop
-	currency_columns = each_currency_row.find_all("td")# Obs: the table structure is tr for rows, and td for the columns
+	currency_columns = singular_currency_row.find_all("td")# Obs: the table structure is tr for rows, and td for the columns
 	print(currency_columns[0].find("p").text) # the Name (Bitcoin)
 	print(currency_columns[3].find("a").text) # the value 
 	print(currency_columns[2].find("p", {"class": "coin-item-symbol"}))
-	print(currency_columns[6].find(""))
-	print() # getting the attribute of the tag. that is , the link
-	 # getting the link of the picture: img, sc
+	print(currency_columns[6].find("p").find("span",{"class":"sc-1ow4cwt-1"}).text)
+	print(currency_columns[2]["href"]) # getting the attribute of the tag. that is , the link to further info
+	print(currency_columns[2].find("img")["src"]) # getting the link of the picture: img, sc
+# syntax :
+# currency_columns[3] = the 4th td tag
+# find("p")
+# find("p", {"class": "something that uniquely identifies"})
+# .text = get the text inside 
+# ["href"] = get the attribute inside the specification; 
+# links: are not the full links. They build up on the page's link - which we can add later
+
+# For loop idea:
+# Go to the currency_rows, get the first element, make it a " singular_currency_row", run the for loop
+# Go to the currency_rows, get the SECOND elemnt.... and so on, for all the elements in the row
 
 # The choice:
  # we choose the one attribute that carries more meaning (and thus, is more stable)
@@ -37,5 +48,39 @@ for each_currency_row in currency_rows:
 # First try for one cryptocurrency, then do the loop
 
 # Error : when wrapping things inside the forloop; it meant that things worked for one row, but not for all.
-# Use one more identifier to make sure the role you are using is actually using the role 
+# one row may be written as a row but actually is a cosmetic row. Ex: has only one column, not multiple -> so we can adjust for the lenght
+# Use one more identifier to make sure the role you are using is actually using the row
 # When we decide to write the currency column, 
+
+#Obs:
+# find (singular) vs. find_all (multiple)
+
+# Html structure: 
+# l1, tbody, td, tr, h1, span, etc
+
+# <htlm>
+# 	<tbody>
+# 		<tr>
+# 			<td>1</td>
+# 			<td>2</td>
+# 			<td>3</td>
+# 		</tr>
+#		<tr>		
+# 			<td>4</td>
+# 			<td>5</td>
+# 			<td>6</td>
+#		</tr>
+# 	</tbody>
+# </htlm>
+
+# meaning: object identifiers for
+# tr = table row
+# td = table column
+# tbody = table body
+# p = paragraph
+# span = 
+# a = link 
+# 
+
+# Remember: long names - so it doesn't clash
+# dynamic typing : you don't need to type 
