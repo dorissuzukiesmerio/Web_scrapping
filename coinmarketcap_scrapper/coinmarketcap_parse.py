@@ -24,13 +24,29 @@ for singular_currency_row in currency_rows:
 	# one_currency_row = currency_rows[0] # only reading the first one; before doing the loop
 	currency_columns = singular_currency_row.find_all("td")# Obs: the table structure is tr for rows, and td for the columns
 	if len(currency_columns)>5:
-		print(scrape_time)
-		print(currency_columns[2].find("p").text) # the Name (Bitcoin)
-		print(currency_columns[3].find("a").text.replace("$","").replace(",","").replace(".","")) # the value 
-		print(currency_columns[2].find("p", {"class": "coin-item-symbol"}))
-		print(currency_columns[6].find("p").find("span",{"class":"sc-1ow4cwt-1"}).text.replace("$","").replace(",","").replace(".",""))
-		print(currency_columns[2].find("a")["href"]) # getting the attribute of the tag. that is , the link to further info
-		print(currency_columns[2].find("img")["src"]) # getting the link of the picture: img, sc
+		# print(scrape_time)
+		currency_name = currency_columns[2].find("p").text # the Name (Bitcoin)
+		currency_price = currency_columns[3].find("a").text.replace("$","").replace(",","").replace(".","")# the value 
+		currency_symbol = currency_columns[2].find("p", {"class": "coin-item-symbol"})
+		currency_marketcap = currency_columns[6].find("p").find("span",{"class":"sc-1ow4cwt-1"}).text.replace("$","").replace(",","").replace(".","")
+		currency_link = currency_columns[2].find("a")["href"] # getting the attribute of the tag. that is , the link to further info
+		currency_image = currency_columns[2].find("img")["src"] # getting the link of the picture: img, sc
+
+		df = df.append({ #from pandas
+					'time':scrape_time,
+					'name':currency_name,
+					'price':currency_price,
+					'symbol':currency_symbol,
+					'marketcap':currency_marketcap,
+					'link':currency_link,
+					'image':currency_image
+				}
+		)
+
+# {} 
+
+
+
 # syntax :
 # currency_columns[3] = the 4th td tag
 # find("p")
@@ -91,3 +107,5 @@ for singular_currency_row in currency_rows:
 
 # Remember: long names - so it doesn't clash
 # dynamic typing : you don't need to type 
+
+# Instead of printing, we put into variable. 
