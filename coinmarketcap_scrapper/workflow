@@ -1,0 +1,10 @@
+# Workflow:
+
+coinmarketcap_request.py 
+	download from the website frontpage(coinmarketcap.com), save it to htlm_files
+
+coinmarketcap_parse.py
+	read html_files, parse it, read the files
+
+coinmarketcap_deeplink.py
+	read past the files, get the link, download fom the website according to the "link" (coinmaketcap.com/?page=), save it to deep_link_html 
