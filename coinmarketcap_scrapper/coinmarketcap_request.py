@@ -24,11 +24,14 @@ for i in range(5): # 1000
 	current_time = datetime.datetime.fromtimestamp(time.time()).strftime("%Y%m%d%H%M%S")
 	print(current_time) # good to see whether the forloop is actually running or not. So you can see the output
 	#f = open("testing.html/testing"+str(i) + ".html", "wb") #writing binary
-	f = open("html_files/coinmarketcap"+ current_time + ".html", "wb") #writing binary
-	response = urllib.request.urlopen("http://coinmarketcap.com/") #sometimes it is useful to drop the s from https 
-	html = response.read() #use the response and put into the read
-	f.write(html) # writing that f into the variable html
-	f.close()
+	for j in range(5):
+		page_num = j + 1
+		f = open("html_files/coinmarketcap"+ str("_") + str(page_num) + str("_") current_time + ".html", "wb") #writing binary
+		response = urllib.request.urlopen("http://coinmarketcap.com/") #sometimes it is useful to drop the s from https 
+		html = response.read() #use the response and put into the read
+		f.write(html) # writing that f into the variable html
+		f.close()
+		time.sleep(60)
 	time.sleep(30) # 300 would be more appropriate in real world ( so the website doesn't block you)
 
 # Comments:
