@@ -8,3 +8,6 @@ coinmarketcap_parse.py
 
 coinmarketcap_deeplink.py
 	read past the files, get the link, download fom the website according to the "link" (coinmaketcap.com/?page=), save it to deep_link_html 
+
+coinmarketcap_deeplink_parse.py
+	(to write: instead of scrapping, name of crypto curency, tbody -> ) # PRACTICE THIS ! 
